@@ -1,0 +1,307 @@
+:root {
+  --bg: #020202;
+  --ink: #f0ece4;
+  --muted: rgba(240,236,228,.48);
+  --line: rgba(240,236,228,.12);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body {
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+button, a { font: inherit; }
+
+.back-home {
+  position: fixed;
+  top: 28px;
+  left: clamp(20px, 3vw, 48px);
+  z-index: 50;
+  color: rgba(240,236,228,.64);
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  transition: color .3s ease;
+}
+
+.back-home:hover,
+.back-home:focus-visible {
+  color: #fff;
+}
+
+#experience {
+  min-height: 100svh;
+  position: relative;
+  isolation: isolate;
+}
+
+.gateway,
+.sky,
+.reader {
+  position: fixed;
+  inset: 0;
+}
+
+.gateway {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 52%, rgba(255,255,255,.025), transparent 34%),
+    #020202;
+  transition: opacity 1.25s ease, visibility 1.25s ease;
+}
+
+.gateway.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.moon-trigger {
+  width: min(46vw, 430px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+}
+
+.moon-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  filter: grayscale(1) contrast(1.04);
+  opacity: .98;
+  transform: scale(1);
+  transition:
+    transform 1.05s ease,
+    filter 1.05s ease,
+    opacity 1.25s ease;
+  filter: grayscale(1) contrast(1.06)
+          drop-shadow(0 0 18px rgba(255,255,255,.16))
+          drop-shadow(0 0 58px rgba(255,255,255,.08));
+}
+
+.moon-trigger:hover .moon-image,
+.moon-trigger:focus-visible .moon-image {
+  transform: scale(1.025);
+  filter: grayscale(1) contrast(1.08) brightness(1.06)
+          drop-shadow(0 0 26px rgba(255,255,255,.24))
+          drop-shadow(0 0 90px rgba(255,255,255,.11));
+}
+
+.moon-trigger.is-dissolving .moon-image {
+  opacity: 0;
+  transform: scale(1.12);
+  filter: blur(16px) brightness(1.2);
+}
+
+.sky {
+  opacity: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.018), transparent 44%),
+    #020202;
+  transition: opacity 1.4s ease;
+}
+
+.sky.is-visible { opacity: 1; }
+
+.constellation-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.constellation {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 0;
+  padding: .35rem .5rem;
+  background: transparent;
+  color: rgba(240,236,228,.53);
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: clamp(1rem, var(--size), 3.25rem);
+  letter-spacing: .012em;
+  opacity: var(--opacity);
+  transition: color .5s ease, opacity .5s ease, text-shadow .5s ease;
+  animation: drift var(--duration) ease-in-out infinite alternate;
+}
+
+.constellation:hover,
+.constellation:focus-visible,
+.constellation.is-active {
+  color: #fff;
+  opacity: 1 !important;
+  text-shadow: 0 0 18px rgba(255,255,255,.18);
+  outline: none;
+}
+
+.constellation-field.has-active .constellation:not(.is-active) {
+  opacity: .12;
+}
+
+@keyframes drift {
+  from { transform: translate(calc(-50% - var(--dx)), calc(-50% - var(--dy))); }
+  to   { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))); }
+}
+
+.poem-cluster {
+  position: absolute;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.poem-link {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(.96);
+  border: 0;
+  padding: .35rem .5rem;
+  background: transparent;
+  color: rgba(240,236,228,.78);
+  cursor: pointer;
+  pointer-events: auto;
+  white-space: nowrap;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(.7rem, 1vw, .93rem);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: bloom .75s forwards;
+  animation-delay: var(--delay);
+}
+
+.poem-link:hover,
+.poem-link:focus-visible {
+  color: #fff;
+  outline: none;
+}
+
+@keyframes bloom {
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.return-moon {
+  position: absolute;
+  right: 28px;
+  bottom: 22px;
+  border: 0;
+  background: transparent;
+  color: rgba(240,236,228,.34);
+  cursor: pointer;
+  font-size: 28px;
+}
+
+.return-moon:hover,
+.return-moon:focus-visible { color: #fff; }
+
+.reader {
+  z-index: 20;
+  overflow-y: auto;
+  background: #050505;
+  opacity: 0;
+  transition: opacity .75s ease;
+}
+
+.reader.is-visible { opacity: 1; }
+
+.reader-close {
+  position: fixed;
+  top: 28px;
+  right: clamp(20px, 3vw, 48px);
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.reader-close:hover,
+.reader-close:focus-visible { color: #fff; }
+
+.reader-inner {
+  width: min(calc(100% - 36px), 770px);
+  margin: 0 auto;
+  padding: 120px 0 100px;
+}
+
+.reader-constellation {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.reader h1 {
+  margin: 0 0 54px;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 400;
+  line-height: .96;
+  letter-spacing: -.045em;
+}
+
+.poem-text {
+  font-size: clamp(1.08rem, 1.55vw, 1.34rem);
+  line-height: 1.72;
+}
+
+.poem-text p { margin: 0 0 2em; }
+
+.reader-nav {
+  margin-top: 70px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+}
+
+.reader-nav button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.reader-nav button:hover,
+.reader-nav button:focus-visible { color: #fff; }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 720px) {
+  .back-home { top: 20px; }
+  .moon-trigger { width: min(74vw, 340px); }
+  .constellation { font-size: clamp(.95rem, var(--size), 2rem); }
+  .reader-close { top: 20px; }
+  .reader-inner { padding-top: 110px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
