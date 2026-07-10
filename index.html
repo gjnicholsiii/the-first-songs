@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The First Songs</title>
+  <meta name="description" content="The First Songs — poetry by Joe Nichols.">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="site-nav">
+    <a class="brand" href="../">The Bastard Saint</a>
+    <nav aria-label="Primary">
+      <a href="../">Home</a>
+      <a href="../writing/">Writing</a>
+      <a href="../poetry/" aria-current="page">Poetry</a>
+      <a href="../about/">About</a>
+    </nav>
+  </header>
+
+  <main id="experience">
+    <section id="gateway" class="gateway" aria-label="Enter The First Songs">
+      <button id="moon-trigger" class="moon-trigger" aria-label="Enter The First Songs">
+        <span class="moon" aria-hidden="true"></span>
+      </button>
+    </section>
+
+    <section id="sky" class="sky" aria-label="Constellations" hidden>
+      <div id="constellation-field" class="constellation-field"></div>
+      <button id="return-to-moon" class="return-moon" aria-label="Return to the moon">○</button>
+    </section>
+
+    <section id="reader" class="reader" hidden aria-live="polite">
+      <button id="close-reader" class="reader-close">Return to the sky</button>
+      <article class="reader-inner">
+        <p id="reader-constellation" class="reader-constellation"></p>
+        <h1 id="reader-title"></h1>
+        <div id="reader-poem" class="poem-text"></div>
+        <nav class="reader-nav" aria-label="Poem navigation">
+          <button id="prev-poem">Previous</button>
+          <button id="next-poem">Next</button>
+        </nav>
+      </article>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
