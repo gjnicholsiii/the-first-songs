@@ -1,8 +1,8 @@
 :root {
   --bg: #020202;
-  --ink: #f0ece4;
-  --muted: rgba(240,236,228,.48);
-  --line: rgba(240,236,228,.12);
+  --ink: #f2eee6;
+  --muted: rgba(242,238,230,.48);
+  --line: rgba(242,238,230,.11);
 }
 
 * { box-sizing: border-box; }
@@ -25,14 +25,14 @@ button, a { font: inherit; }
   position: fixed;
   top: 28px;
   left: clamp(20px, 3vw, 48px);
-  z-index: 50;
-  color: rgba(240,236,228,.64);
+  z-index: 80;
+  color: rgba(242,238,230,.58);
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  letter-spacing: .13em;
+  font-size: 10px;
+  letter-spacing: .15em;
   text-transform: uppercase;
-  transition: color .3s ease;
+  transition: color .35s ease, opacity .35s ease;
 }
 
 .back-home:hover,
@@ -57,9 +57,23 @@ button, a { font: inherit; }
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 50% 52%, rgba(255,255,255,.025), transparent 34%),
+    radial-gradient(circle at 50% 53%, rgba(255,255,255,.022), transparent 28%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.008), transparent 52%),
     #020202;
   transition: opacity 1.25s ease, visibility 1.25s ease;
+}
+
+.gateway::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.18) 0 1px, transparent 1.3px),
+    radial-gradient(circle, rgba(255,255,255,.09) 0 1px, transparent 1.2px);
+  background-size: 180px 180px, 270px 270px;
+  background-position: 40px 20px, 120px 90px;
+  opacity: .08;
 }
 
 .gateway.is-leaving {
@@ -68,7 +82,7 @@ button, a { font: inherit; }
 }
 
 .moon-trigger {
-  width: min(46vw, 430px);
+  width: min(44vw, 410px);
   aspect-ratio: 1;
   padding: 0;
   border: 0;
@@ -76,6 +90,39 @@ button, a { font: inherit; }
   border-radius: 50%;
   cursor: pointer;
   outline: none;
+  position: relative;
+}
+
+.moon-trigger::before,
+.moon-trigger::after {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(.95);
+  transition: opacity .8s ease, transform 1.2s ease;
+}
+
+.moon-trigger::before {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.16), transparent 58%);
+  filter: blur(18px);
+}
+
+.moon-trigger::after {
+  background:
+    radial-gradient(circle, rgba(255,255,255,.72) 0 1px, transparent 1.5px);
+  background-size: 18px 18px;
+  mix-blend-mode: screen;
+  filter: blur(.2px);
+}
+
+.moon-trigger:hover::before,
+.moon-trigger:focus-visible::before {
+  opacity: .55;
+  transform: scale(1.04);
 }
 
 .moon-image {
@@ -84,38 +131,72 @@ button, a { font: inherit; }
   height: 100%;
   object-fit: contain;
   border-radius: 50%;
-  filter: grayscale(1) contrast(1.04);
-  opacity: .98;
+  opacity: .985;
   transform: scale(1);
   transition:
-    transform 1.05s ease,
-    filter 1.05s ease,
-    opacity 1.25s ease;
-  filter: grayscale(1) contrast(1.06)
-          drop-shadow(0 0 18px rgba(255,255,255,.16))
-          drop-shadow(0 0 58px rgba(255,255,255,.08));
+    transform 1.1s cubic-bezier(.22,.61,.36,1),
+    filter 1.1s ease,
+    opacity 1.2s ease;
+  filter:
+    grayscale(1)
+    contrast(1.08)
+    drop-shadow(0 0 14px rgba(255,255,255,.18))
+    drop-shadow(0 0 48px rgba(255,255,255,.08));
 }
 
 .moon-trigger:hover .moon-image,
 .moon-trigger:focus-visible .moon-image {
-  transform: scale(1.025);
-  filter: grayscale(1) contrast(1.08) brightness(1.06)
-          drop-shadow(0 0 26px rgba(255,255,255,.24))
-          drop-shadow(0 0 90px rgba(255,255,255,.11));
+  transform: scale(1.018);
+  filter:
+    grayscale(1)
+    contrast(1.1)
+    brightness(1.045)
+    drop-shadow(0 0 22px rgba(255,255,255,.24))
+    drop-shadow(0 0 86px rgba(255,255,255,.10));
 }
 
 .moon-trigger.is-dissolving .moon-image {
   opacity: 0;
+  transform: scale(1.09);
+  filter: blur(15px) brightness(1.28);
+}
+
+.moon-trigger.is-dissolving::before {
+  opacity: .8;
   transform: scale(1.12);
-  filter: blur(16px) brightness(1.2);
+}
+
+.moon-trigger.is-dissolving::after {
+  opacity: .85;
+  transform: scale(1.28) rotate(7deg);
+  animation: scatter 1.45s forwards ease-out;
+}
+
+@keyframes scatter {
+  0%   { filter: blur(.2px); background-size: 18px 18px; }
+  100% { filter: blur(2px); background-size: 34px 34px; opacity: 0; }
 }
 
 .sky {
   opacity: 0;
   background:
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,.018), transparent 44%),
+    radial-gradient(circle at 50% 52%, rgba(255,255,255,.018), transparent 34%),
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,.007), transparent 26%),
     #020202;
-  transition: opacity 1.4s ease;
+  transition: opacity 1.35s ease;
+}
+
+.sky::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.15) 0 1px, transparent 1.3px),
+    radial-gradient(circle, rgba(255,255,255,.08) 0 1px, transparent 1.2px);
+  background-size: 210px 210px, 330px 330px;
+  background-position: 20px 80px, 150px 30px;
+  opacity: .09;
 }
 
 .sky.is-visible { opacity: 1; }
@@ -132,14 +213,20 @@ button, a { font: inherit; }
   border: 0;
   padding: .35rem .5rem;
   background: transparent;
-  color: rgba(240,236,228,.53);
+  color: rgba(242,238,230,.52);
   cursor: pointer;
   white-space: nowrap;
-  font-size: clamp(1rem, var(--size), 3.25rem);
+  font-size: clamp(1rem, var(--size), 4rem);
   letter-spacing: .012em;
   opacity: var(--opacity);
-  transition: color .5s ease, opacity .5s ease, text-shadow .5s ease;
-  animation: drift var(--duration) ease-in-out infinite alternate;
+  transition:
+    color .55s ease,
+    opacity .55s ease,
+    text-shadow .55s ease,
+    filter .55s ease;
+  animation:
+    drift var(--duration) ease-in-out infinite alternate,
+    breathe var(--breath) ease-in-out infinite alternate;
 }
 
 .constellation:hover,
@@ -147,17 +234,23 @@ button, a { font: inherit; }
 .constellation.is-active {
   color: #fff;
   opacity: 1 !important;
-  text-shadow: 0 0 18px rgba(255,255,255,.18);
+  text-shadow: 0 0 20px rgba(255,255,255,.18);
+  filter: brightness(1.08);
   outline: none;
 }
 
 .constellation-field.has-active .constellation:not(.is-active) {
-  opacity: .12;
+  opacity: .1;
 }
 
 @keyframes drift {
   from { transform: translate(calc(-50% - var(--dx)), calc(-50% - var(--dy))); }
   to   { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))); }
+}
+
+@keyframes breathe {
+  from { letter-spacing: .012em; }
+  to   { letter-spacing: .022em; }
 }
 
 .poem-cluster {
@@ -168,20 +261,21 @@ button, a { font: inherit; }
 
 .poem-link {
   position: absolute;
-  transform: translate(-50%, -50%) scale(.96);
+  transform: translate(-50%, -50%) scale(.97);
   border: 0;
   padding: .35rem .5rem;
   background: transparent;
-  color: rgba(240,236,228,.78);
+  color: rgba(242,238,230,.76);
   cursor: pointer;
   pointer-events: auto;
   white-space: nowrap;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(.7rem, 1vw, .93rem);
+  font-size: clamp(.7rem, .95vw, .91rem);
   letter-spacing: .08em;
   text-transform: uppercase;
   opacity: 0;
-  animation: bloom .75s forwards;
+  filter: blur(3px);
+  animation: bloom .95s forwards cubic-bezier(.22,.61,.36,1);
   animation-delay: var(--delay);
 }
 
@@ -192,7 +286,8 @@ button, a { font: inherit; }
 }
 
 @keyframes bloom {
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  0%   { opacity: 0; filter: blur(3px); transform: translate(-50%, -50%) scale(.97); }
+  100% { opacity: 1; filter: blur(0); transform: translate(-50%, -50%) scale(1); }
 }
 
 .return-moon {
@@ -201,20 +296,35 @@ button, a { font: inherit; }
   bottom: 22px;
   border: 0;
   background: transparent;
-  color: rgba(240,236,228,.34);
+  color: rgba(242,238,230,.28);
   cursor: pointer;
-  font-size: 28px;
+  font-size: 26px;
+  transition: color .35s ease, transform .35s ease;
 }
 
 .return-moon:hover,
-.return-moon:focus-visible { color: #fff; }
+.return-moon:focus-visible {
+  color: #fff;
+  transform: scale(1.08);
+}
 
 .reader {
   z-index: 20;
   overflow-y: auto;
   background: #050505;
   opacity: 0;
-  transition: opacity .75s ease;
+  transition: opacity .85s ease;
+}
+
+.reader::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.018), transparent 32%),
+    #050505;
+  z-index: -1;
 }
 
 .reader.is-visible { opacity: 1; }
@@ -228,8 +338,8 @@ button, a { font: inherit; }
   color: var(--muted);
   cursor: pointer;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  letter-spacing: .13em;
+  font-size: 10px;
+  letter-spacing: .14em;
   text-transform: uppercase;
 }
 
@@ -237,37 +347,45 @@ button, a { font: inherit; }
 .reader-close:focus-visible { color: #fff; }
 
 .reader-inner {
-  width: min(calc(100% - 36px), 770px);
+  width: min(calc(100% - 36px), 760px);
   margin: 0 auto;
-  padding: 120px 0 100px;
+  padding: 118px 0 100px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .9s ease .18s, transform .9s ease .18s;
+}
+
+.reader.is-visible .reader-inner {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .reader-constellation {
   margin: 0 0 18px;
   color: var(--muted);
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: .14em;
   text-transform: uppercase;
 }
 
 .reader h1 {
   margin: 0 0 54px;
-  font-size: clamp(3rem, 8vw, 7rem);
+  font-size: clamp(3.2rem, 8vw, 7.2rem);
   font-weight: 400;
-  line-height: .96;
+  line-height: .95;
   letter-spacing: -.045em;
 }
 
 .poem-text {
-  font-size: clamp(1.08rem, 1.55vw, 1.34rem);
-  line-height: 1.72;
+  font-size: clamp(1.08rem, 1.45vw, 1.31rem);
+  line-height: 1.74;
 }
 
 .poem-text p { margin: 0 0 2em; }
 
 .reader-nav {
-  margin-top: 70px;
+  margin-top: 72px;
   padding-top: 22px;
   border-top: 1px solid var(--line);
   display: flex;
@@ -280,8 +398,8 @@ button, a { font: inherit; }
   color: var(--muted);
   cursor: pointer;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  letter-spacing: .12em;
+  font-size: 10px;
+  letter-spacing: .13em;
   text-transform: uppercase;
 }
 
@@ -292,10 +410,10 @@ button, a { font: inherit; }
 
 @media (max-width: 720px) {
   .back-home { top: 20px; }
-  .moon-trigger { width: min(74vw, 340px); }
-  .constellation { font-size: clamp(.95rem, var(--size), 2rem); }
+  .moon-trigger { width: min(72vw, 340px); }
+  .constellation { font-size: clamp(.95rem, var(--size), 2.15rem); }
   .reader-close { top: 20px; }
-  .reader-inner { padding-top: 110px; }
+  .reader-inner { padding-top: 108px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,17 +1,26 @@
-# The First Songs
+# The First Songs — Polished Build
 
-This package contains the complete GitHub Pages project.
+Upload every file and folder in this package to the root of the GitHub repository.
 
-Upload the contents of this folder to the repository root:
+This build includes:
 
-- index.html
-- style.css
-- app.js
-- assets/
-- data/
+- realistic moon with layered halo
+- light-scatter dissolve
+- collision-aware constellation placement
+- varied typography and opacity
+- slower independent drift
+- staggered poem-title bloom
+- title-led transition into the reader
+- refined reader typography
+- one direct return link to The Bastard Saint
+- all 25 poems populated
 
-The only top-level navigation is:
+Repository root should contain:
 
-← The Bastard Saint
-
-It points directly to https://thebastardsaint.com and does not use browser history.
+index.html
+style.css
+app.js
+README.md
+CONTENT-CHECK.txt
+assets/
+data/
